@@ -16,6 +16,8 @@ This repository is the PyTorch implementation for the network presented in:
 > **Towards 3D Human Pose Estimation in the Wild: a Weakly-supervised Approach**
 > ICCV 2017 ([arXiv:1704.02447](https://arxiv.org/abs/1704.02447))
 
+Checkout my fixed version [fixed pytorch implementation](https://github.com/IcewineChen/pytorch-pose-hg-3d/tree/fixed)
+
 Checkout the original [torch implementation](https://github.com/xingyizhou/pose-hg-3d).
 
 Checkout the clean [2D hourglass network branch](https://github.com/xingyizhou/pytorch-pose-hg-3d/tree/2D).
