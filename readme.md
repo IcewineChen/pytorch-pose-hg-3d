@@ -1,6 +1,14 @@
 # Towards 3D Human Pose Estimation in the Wild: a Weakly-supervised Approach
 
-Forked from Xingyi Zhou.Used for further research.
+Forked from Xingyi Zhou. Used for further research.
+
+## The fixed branch version requires:
+- Pytorch 0.4.0
+- python 2.7
+
+The training process follows the steps proposed by Xingyi Zhou. Thanks for his work.
+
+If your pytorch version == 0.4.0, maybe you should not used the pretrained model of StageI. I have a torch.nn.Upsample() problem with the pretrained model. The optional param align_corners will not pass the check.  
 
 This repository is the PyTorch implementation for the network presented in:
 

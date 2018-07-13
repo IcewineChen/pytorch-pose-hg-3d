@@ -1,3 +1,4 @@
+import torch
 from .layers.Residual import Residual
 import torch.nn as nn
 import math
