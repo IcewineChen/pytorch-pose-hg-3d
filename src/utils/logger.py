@@ -2,9 +2,9 @@
 import os
 LOG = True
 try:
-  import tensorflow as tf
+    import tensorflow as tf
 except:
-  LOG = False
+    LOG = False
 import numpy as np
 import scipy.misc 
 try:
@@ -18,11 +18,11 @@ class Logger(object):
     def __init__(self, log_dir):
         """Create a summary writer logging to log_dir."""
         if LOG:
-          self.writer = tf.summary.FileWriter(log_dir)
-          self.f = open(log_dir + '/log.txt', 'w')
+            self.writer = tf.summary.FileWriter(log_dir)
+            self.f = open(log_dir + '/log.txt', 'w')
         else:
-          os.mkdir(log_dir)
-          self.f = open(log_dir + '/log.txt', 'w')
+            os.mkdir(log_dir)
+            self.f = open(log_dir + '/log.txt', 'w')
     def write(self, txt):
         self.f.write(txt)
     

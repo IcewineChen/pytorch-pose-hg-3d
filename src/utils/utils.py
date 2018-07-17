@@ -26,12 +26,12 @@ class AverageMeter(object):
         self.avg = self.sum / self.count
              
 def Rnd(x):
-  return max(-2 * x, min(2 * x, randn() * x))
+    return max(-2 * x, min(2 * x, randn() * x))
   
 def Flip(img):
-  return img[:, :, ::-1].copy()  
+    return img[:, :, ::-1].copy()
   
 def ShuffleLR(x):
-  for e in ref.shuffleRef:
-    x[e[0]], x[e[1]] = x[e[1]].copy(), x[e[0]].copy()
-  return x
+    for e in ref.shuffleRef:
+        x[e[0]], x[e[1]] = x[e[1]].copy(), x[e[0]].copy()
+    return x

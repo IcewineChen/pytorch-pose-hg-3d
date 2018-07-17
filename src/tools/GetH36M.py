@@ -13,7 +13,7 @@ SAVE_PATH = '../../data/h36m/'
 annot_name = 'matlab_meta.mat'
 
 if not os.path.exists(SAVE_PATH):
-  os.mkdir(SAVE_PATH)
+    os.mkdir(SAVE_PATH)
 
 id = []
 joint_2d = []
@@ -27,39 +27,38 @@ istrain = []
 num = 0
 
 for split in range(2):
-
-  for subject in subject_list[split]:
-    for action in action_list:
-      for subaction in subaction_list:
-        for camera in camera_list:
-          folder_name = 's_{:02d}_act_{:02d}_subact_{:02d}_ca_{:02d}'.format(subject, action, subaction, camera)
-          print(folder_name)
-          annot_file = IMG_PATH + folder_name + '/' + annot_name
-          try:
-            data = sio.loadmat(annot_file)
-          except:
-            print('pass', folder_name)
-            continue
-          n = data['num_images'][0][0]
-          meta_Y2d = data['Y2d'].reshape(17, 2, n)
-          meta_Y3d_mono = data['Y3d_mono'].reshape(17, 3, n)
-          bboxx = data['bbox'].transpose(1, 0)
-          print(data['num_images'])
-          for i in range(data['num_images'][0][0]):
-            if i % 5 != 0:
-              continue
-            if split == 1 and i % 200 != 0:
-              continue
-            id.append(i + 1)
-            joint_2d.append(meta_Y2d[inds, :, i])
-            joint_3d_mono.append(meta_Y3d_mono[inds, :, i])
-            bbox.append(bboxx[i])
-            subjects.append(subject)
-            actions.append(action)
-            subactions.append(subaction)
-            cameras.append(camera)
-            istrain.append(1 - split)
-            num += 1
+    for subject in subject_list[split]:
+        for action in action_list:
+            for subaction in subaction_list:
+                for camera in camera_list:
+                    folder_name = 's_{:02d}_act_{:02d}_subact_{:02d}_ca_{:02d}'.format(subject, action, subaction, camera)
+                    print(folder_name)
+                    annot_file = IMG_PATH + folder_name + '/' + annot_name
+                    try:
+                        data = sio.loadmat(annot_file)
+                    except:
+                        print('pass', folder_name)
+                        continue
+                    n = data['num_images'][0][0]
+                    meta_Y2d = data['Y2d'].reshape(17, 2, n)
+                    meta_Y3d_mono = data['Y3d_mono'].reshape(17, 3, n)
+                    bboxx = data['bbox'].transpose(1, 0)
+                    print(data['num_images'])
+                    for i in range(data['num_images'][0][0]):
+                        if i % 5 != 0:
+                            continue
+                        if split == 1 and i % 200 != 0:
+                            continue
+                        id.append(i + 1)
+                        joint_2d.append(meta_Y2d[inds, :, i])
+                        joint_3d_mono.append(meta_Y3d_mono[inds, :, i])
+                        bbox.append(bboxx[i])
+                        subjects.append(subject)
+                        actions.append(action)
+                        subactions.append(subaction)
+                        cameras.append(camera)
+                        istrain.append(1 - split)
+                        num += 1
           
 print('num = ', num)
 h5name = SAVE_PATH + 'annotSampleTest.h5'
