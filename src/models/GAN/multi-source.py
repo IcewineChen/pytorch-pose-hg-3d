@@ -2,6 +2,10 @@ import torch
 import torch.nn as nn
 import src.models.hg_3d as hg_3d
 from torch.autograd import Variable
+import opts
+import ref
+
+opt = opts.opts().parse()
 
 def discriptor(sample,gt):      #把sample和gt的keypoint一起传进来
     # 把generator生成的结果和3d ground truth比较，生成一个手工描述子
@@ -22,23 +26,21 @@ class Generator(nn.Module):
         return self.model(x)
 
 class Discrminator(nn.Module):
-    def __init__(self,data,discriptor,heatmaps,depth,batch_size,embedding_dims,nFeats): # 预留一部分参数
-        self.origin_data = data
-        self.discriptor = discriptor
-        self.heatmap = heatmaps
-        self.depth = depth
-        self.batch_size = batch_size
+    def __init__(self,embedding_dims): # 预留一部分参数
         self.embedding_dims = embedding_dims
-        self.feats = nFeats
-        
         # layers定义
-        self.fc1 = nn.Linear(self.batch_size,self.embedding_dims)
+        self.emb1 = nn.Linear(ref.inputRes*ref.inputRes,self.embedding_dims)
+        self.emb2 = nn.Linear(ref.nJoints*ref.nJoints*6,embedding_dims)
+        self.emb3 = nn.Linear(3*ref.outputRes*ref.outputRes,embedding_dims)
+        self.fc1 = nn.Linear(self.embedding_dims*3,self.embedding_dims*3)
         self.fc2 = nn.Linear(self.embedding_dims*3,self.embedding_dims*3)
-        self.fc3 = nn.Linear(self.embedding_dims*3,self.embedding_dims*3)
-        self.fc4 = nn.Linear(self.embedding_dims*3,1)   # 输出0，1判断real和fake
+        self.fc3 = nn.Linear(self.embedding_dims*3,1)   # 输出0，1判断real和fake
 
-    def forward(self,x):    # x包
+    def forward(self,x):    # x包括了输入的img，heatmap和depth
+        img = x[0]
+        heatmap = x[1]
+        img_emb = self.emb1(img)
+        heatmap = self.emb3(heatmap)
         pass
-
 
 
