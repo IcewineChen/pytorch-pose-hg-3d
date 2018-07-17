@@ -36,11 +36,17 @@ class Discrminator(nn.Module):
         self.fc2 = nn.Linear(self.embedding_dims*3,self.embedding_dims*3)
         self.fc3 = nn.Linear(self.embedding_dims*3,1)   # 输出0，1判断real和fake
 
-    def forward(self,x):    # x包括了输入的img，heatmap和depth
+    def forward(self,x,target):    # x包括了输入的img，heatmap和depth
         img = x[0]
-        heatmap = x[1]
+        geo = discriptor(x[1],target)
+        heatmap = x[2]
         img_emb = self.emb1(img)
-        heatmap = self.emb3(heatmap)
-        pass
+        geo_emb = self.emb2(geo)
+        heatmap_emb = self.emb3(heatmap)
+        concat = [img_emb,geo_emb,heatmap_emb]
+        out_dis = self.fc1(concat)
+        out_dis = self.fc2(out_dis)
+        r_f = self.fc3(out_dis)
+        return r_f
 
 
