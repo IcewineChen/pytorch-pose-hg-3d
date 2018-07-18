@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 import torch
 import torch.nn as nn
 import src.models.hg_3d as hg_3d
@@ -14,6 +15,8 @@ def discriptor(sample,gt):      #把sample和gt的keypoint一起传进来
     delta = pow(sample-gt,2)
     return [sample[0]-gt[0],sample[1]-gt[1],sample[2]-gt[2],delta[0],delta[1],delta[2]]
 
+# 之后需要撤掉fusioncriterion(就是geometric loss)
+# 具体换成啥看实验再定
 class Generator(nn.Module):
     def __init__(self,nStack, nModules, nFeats, nRegModules):      # model直接把之前3dhourglass model传进来
         super(Generator,self).__init__()
@@ -25,7 +28,7 @@ class Generator(nn.Module):
         # 直接出结果
         return self.model(x)
 
-class Discrminator(nn.Module):
+class Discriminator(nn.Module):
     def __init__(self,embedding_dims): # 预留一部分参数
         self.embedding_dims = embedding_dims
         # layers定义

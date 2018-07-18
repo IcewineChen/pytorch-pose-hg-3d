@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 import torch
 from torch.autograd import Function
 import numpy as np
@@ -8,7 +9,7 @@ class FusionCriterion(Function):
         super(FusionCriterion, self).__init__()
         self.regWeight = regWeight
         self.varWeight = varWeight
-
+        # 按照要求放置四组，存在skeletonref里
         self.skeletonRef = [[[0,1],    [1,2],
                              [3,4],    [4,5]],
                             [[10,11],  [11,12],

@@ -129,10 +129,7 @@ class HourglassNet3D(nn.Module):
       
     x = x.view(x.size(0), -1)
     reg = self.reg(x)
-    # out是
     out.append(reg)
-      
-    # 需要扩展，把[img,heatmap,depth]一起拿出来
     
     return out
 

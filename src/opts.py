@@ -27,7 +27,8 @@ class opts():
         self.parser.add_argument('-ratio3D', type = int, default = 0, help = 'weak label data ratio')
         self.parser.add_argument('-regWeight', type = float, default = 0, help = 'depth regression loss weight')
         self.parser.add_argument('-varWeight', type = float, default = 0, help = 'variance loss weight')
-
+        self.parser.add_argument('-embedding_dims', type = int, default = 128, help = 'embedding dims of discriminator')
+        self.parser.add_argument('-epochs', type = int, default = 30, help = 'epochs for training GAN')
 
     def parse(self):
         self.init()
